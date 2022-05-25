@@ -8,13 +8,14 @@ Mastermind is a code breaking game.
 
 In this version, you will play the role of the code-breaker.
 
-You will figure out the number combination of a randomly generated 4 digit 'code'. There are 6 possible numbers for each 'peg'. Each number will be displayed as either an exact match or a partial match.
+Each turn, you will try to figure out the number combination of a randomly generated 4 digit 'code'. There are 6 possible numbers for each digit of the 'code'. Each digit will be counted as either an exact match or a partial match.
 
-- Exact: Represents number of 'pegs' that are the *correct* number and *correct* position.
-- Partial: Represents number of 'pegs' that are the *correct* number, but *wrong* position.
+- **Exact**: Represents number of digits that are the **correct** number and **correct** position.
+- **Partial**: Represents number of digits that are the **correct** number, but **wrong** position.
 
-## To Play ##
+## Play ##
 
-Go to [repl.it](https://replit.com/@KenTohara/rubyMastermind) and press the green run button at the top of the page.
+Head to [repl.it](https://replit.com/@KenTohara/rubyMastermind).
+Press the green run button at the top of the page.
 
 [![Run on Repl.it](https://repl.it/badge/github/KTohara/ruby_Mastermind)](https://replit.com/@KenTohara/rubyMastermind)
