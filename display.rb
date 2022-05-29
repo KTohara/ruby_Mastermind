@@ -4,21 +4,26 @@
 module Display
   def prompt(message)
     {
-      guess: 'Make a guess - 4 digits between 1-6',
+      breaker_code: "Enter a 4 digit 'code' using numbers 1-6 for each digit, to be broken by the computer",
+      guess: "Make a guess - 4 digits between 1-6 IE: '1234'",
       replay: 'Repeat game? (y)es/(n)o'
     }[message]
   end
 
   def error(message)
     {
-      guess: 'Guess must be 4 digits between 1-6'
+      game_mode: 'Enter (1) to be a code BREAKER, (2) to be a code MAKER',
+      code_error: "Your 'code' must be 4 digits, between 1-6"
     }[message]
   end
 
-  def game_outcome(message)
+  def game_message(message)
     {
-      win: 'You win!',
-      lose: 'You lose!',
+      greetings: "Let's play Mastermind!\n" +
+        "Press (1) to be a code BREAKER\n" +
+        "Press (2) to be a code MAKER\n",
+      win: 'The code was guessed!',
+      lose: 'The code was not found!',
       thanks: 'Thanks for playing!'
     }[message]
   end
@@ -30,6 +35,6 @@ module Display
   end
 
   def show_code(code)
-    puts "#{code.join(' ')}"
+    puts code.join(' ').to_s
   end
 end

@@ -1,48 +1,59 @@
 # frozen_string_literal: true
 
-require_relative 'board'
+# require_relative 'player'
 require_relative 'human'
 require_relative 'computer'
+require_relative 'display'
 
 # Input for starting game
 class Mastermind
-  def self.run
-    puts "Let's play Mastermind!"
-    puts 'Press (1) to be a code BREAKER'
-    puts 'Press (2) to be a code MAKER'
+  include Display
+
+  def run
+    puts game_message(:greetings)
     input = gets.chomp
     until %w[1 2].include?(input)
-      puts 'Enter (1) to be a code BREAKER, (2) to be a code MAKER'
+      puts error(:game_mode)
       input = gets.chomp
     end
     code_breaker if input == '1'
     code_maker if input == '2'
+    repeat_game
   end
 
-  class << self
-    private
+  private
 
-    def code_breaker
-      breaker = Human.new
-      breaker.play_turns
-    end
+  def code_breaker
+    breaker = Human.new
+    breaker.play_turns
+  end
 
-    def code_maker
-      code = input_new_code
-      maker = Computer.new(code)
-      maker.play_turns
-    end
+  def code_maker
+    code = input_new_code
+    maker = Computer.new(code)
+    maker.play_turns
+  end
 
-    def input_new_code
-      puts "Enter a 4 digit 'code' using numbers 1-6 for each digit, to be broken by the computer"
+  def input_new_code
+    puts prompt(:breaker_code)
+    input = gets.chomp
+    until input.match?(/^[1-6]{4}$/)
+      puts error(:code_error)
       input = gets.chomp
-      until input.match?(/^[1-6]{4}$/)
-        puts "Your 'code' must be 4 digits, between 1-6"
-        input = gets.chomp
-      end
-      input.split('')
     end
+    input.split('')
+  end
+
+  def repeat_game
+    input = nil
+    until %w[y n].include?(input)
+      puts prompt(:replay)
+      input = gets.chomp.downcase
+      Mastermind.new.run if input == 'y'
+    end
+    puts game_message(:thanks)
+    exit 0
   end
 end
 
-Mastermind.run if $PROGRAM_NAME == __FILE__
+Mastermind.new.run if $PROGRAM_NAME == __FILE__
