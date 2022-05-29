@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/AbcSize
 # frozen_string_literal: true
 
 require_relative 'display'
@@ -20,7 +21,7 @@ class Computer < Player
   def play_turns
     (1..MAX_TURNS).each do |turn|
       # show_code(code) # display board
-      puts "turn message - diplay master code #{code}"
+      puts game_message(:show_code)
       puts "TURN #{turn}"
       @guess = correct_nums.nil? ? find_code_numbers(turn) : find_code_order(correct_nums)
       update_guesses
@@ -62,3 +63,5 @@ class Computer < Player
     end
   end
 end
+
+# rubocop: enable Metrics/AbcSize

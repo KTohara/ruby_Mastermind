@@ -22,7 +22,7 @@ class Player
     (0...code.length).inject(0) do |count, i|
       next count unless code[i] == guess[i]
 
-      code[i] = 'E'
+      code[i] = 'E' # exact match
       guess[i] = 'E'
       count + 1
     end
@@ -33,7 +33,7 @@ class Player
       next count unless code.include?(guess[i]) && guess[i] != 'E'
 
       partial_idx = code.index(guess[i])
-      code[partial_idx] = 'P'
+      code[partial_idx] = 'P' # partial match
       guess[i] = 'P'
       count + 1
     end

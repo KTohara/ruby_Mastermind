@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/AbcSize
 # frozen_string_literal: true
 
 require_relative 'display'
@@ -36,3 +37,5 @@ class Human < Player
     @guess = input.split('')
   end
 end
+
+# rubocop: enable Metrics/AbcSize

@@ -4,6 +4,7 @@
 require_relative 'human'
 require_relative 'computer'
 require_relative 'display'
+require_relative 'color'
 
 # Input for starting game
 class Mastermind
@@ -18,7 +19,7 @@ class Mastermind
     end
     code_breaker if input == '1'
     code_maker if input == '2'
-    repeat_game
+    repeat_game?
   end
 
   private
@@ -44,7 +45,7 @@ class Mastermind
     input.split('')
   end
 
-  def repeat_game
+  def repeat_game?
     input = nil
     until %w[y n].include?(input)
       puts prompt(:replay)
