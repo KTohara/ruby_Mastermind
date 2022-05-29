@@ -10,23 +10,23 @@ class Human
 
   def initialize
     @code = (1..4).inject([]) { |acc| acc << rand(1..6).to_s }
+    @previous_guesses = {}
   end
 
   def play_turns
     (1..MAX_TURNS).each do |turn|
       puts "CODE: #{code.join(' ')}"
       puts "TURN: #{turn}"
-      @guess = player_input
-      compare_guess
-      show_guess(guess, self)
-      break if win?
+      player_input
+      previous_guesses[guess] = compare(guess, code)
+      show_guess(guess, previous_guesses[guess])
+      game_over if win?
     end
-    game_over
   end
 
   protected
 
-  attr_reader :code, :guess, :exact, :partial
+  attr_reader :code, :guess, :previous_guesses
 
   def player_input
     puts prompt(:guess)
@@ -35,14 +35,13 @@ class Human
       puts error(:guess)
       input = gets.chomp
     end
-    input.split('')
+    @guess = input.split('')
   end
 
-  def compare_guess
+  def compare(guess, code)
     guess_dup = guess.dup
     code_dup = code.dup
-    @exact = exact_match(guess_dup, code_dup)
-    @partial = partial_match(guess_dup, code_dup)
+    [exact_match(guess_dup, code_dup), partial_match(guess_dup, code_dup)]
   end
 
   def exact_match(guess, code)
@@ -71,7 +70,7 @@ class Human
   end
 
   def game_over
-    puts win? ? game_outcome(:win) : game_outcome(:lose)
+    puts win?(code, guess) ? game_outcome(:win) : game_outcome(:lose)
     repeat_game
   end
 

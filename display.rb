@@ -23,9 +23,13 @@ module Display
     }[message]
   end
 
-  def show_guess(array, player)
+  def show_guess(array, hits)
     system('clear')
     puts "GUESS: #{array.join(' ')}"
-    puts "Exact: #{player.exact} | Partial: #{player.partial}"
+    puts "EXACT: #{hits.first} | PARTIAL: #{hits.last}"
+  end
+
+  def show_code(code)
+    puts "#{code.join(' ')}"
   end
 end
