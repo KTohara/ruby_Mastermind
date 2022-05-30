@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require_relative 'player'
+require 'byebug'
 require_relative 'human'
 require_relative 'computer'
 require_relative 'display'
@@ -25,14 +25,15 @@ class Mastermind
   private
 
   def code_breaker
-    breaker = Human.new
-    breaker.play_turns
+    code = (1..4).inject([]) { |acc| acc << rand(1..6).to_s }
+    breaker = Human.new(code)
+    breaker.play_game
   end
 
   def code_maker
     code = input_new_code
     maker = Computer.new(code)
-    maker.play_turns
+    maker.play_game
   end
 
   def input_new_code

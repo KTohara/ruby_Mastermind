@@ -1,28 +1,29 @@
-# rubocop: disable Metrics/AbcSize
 # frozen_string_literal: true
 
-require_relative 'display'
 require_relative 'player'
 
 # Human player class
 class Human < Player
   include Display
 
-  def initialize
-    super()
-    @code = (1..4).inject([]) { |acc| acc << rand(1..6).to_s }
-  end
-
-  def play_turns
-    (1..MAX_TURNS).each do |turn|
-      puts "CODE: #{code.join(' ')}"
-      puts "TURN: #{turn}"
-      player_input
-      previous_guesses[guess] = compare(guess, code)
-      show_guess(guess, previous_guesses[guess])
+  def play_game
+    until turn == 11
+      puts board
+      @guess = player_input
+      update_board
       break if win?
+
+      turn += 1
     end
     game_over
+  end
+
+  def play_turn
+    puts "CODE: #{code.join(' ')}"
+    puts "TURN: #{turn}"
+    player_input
+    # previous_guesses[guess] = compare(guess, code)
+    # show_guess(guess, previous_guesses[guess])
   end
 
   protected
@@ -37,5 +38,3 @@ class Human < Player
     @guess = input.split('')
   end
 end
-
-# rubocop: enable Metrics/AbcSize

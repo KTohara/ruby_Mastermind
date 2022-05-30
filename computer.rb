@@ -1,67 +1,72 @@
-# rubocop: disable Metrics/AbcSize
 # frozen_string_literal: true
 
-require_relative 'display'
 require_relative 'player'
 
 # Computer player class
 class Computer < Player
   include Display
 
-  attr_reader :correct_nums, :possible_guesses
+  attr_reader :correct_nums, :possible_guesses, :guess_hits, :hit_count
 
   PEGS = %w[1 2 3 4 5 6].shuffle.freeze
 
   def initialize(code)
-    super()
-    @code = code
+    super
     @correct_nums = nil
   end
 
-  def play_turns
-    (1..MAX_TURNS).each do |turn|
-      # show_code(code) # display board
-      puts game_message(:show_code)
-      puts "TURN #{turn}"
-      @guess = correct_nums.nil? ? find_code_numbers(turn) : find_code_order(correct_nums)
-      update_guesses
-      puts "GUESS: #{guess.join(' ')}"
-      puts "HITS: #{previous_guesses[guess]}"
-      puts
+  def play_game
+    until turn == 11
+      play_turn
+      sleep(1)
       break if win?
+
+      @turn += 1
     end
     game_over
   end
 
-  def update_guesses
-    total_hits = compare(guess, code)
-    @correct_nums = guess if total_hits.sum == 4
-    previous_guesses[guess] = total_hits
+  def play_turn
+    render
+    @guess = find_guess
+    @guess_hits = compare(guess, code)
+    @hit_count = find_hit_counts(guess_hits).sum
+    @correct_nums = guess if hit_count == 4
+    update_board
   end
 
-  def find_code_numbers(turn)
-    return (1..4).inject([]) { |arr| arr << PEGS.first } if turn == 1
+  def find_guess
+    correct_nums.nil? ? find_code_numbers : find_code_order(correct_nums)
+  end
 
-    total_hits = previous_guesses[guess].nil? ? 0 : compare(guess, code)
-    correct = guess.take(total_hits.sum)
-    correct << PEGS[turn - 1] until correct.length == 4
+  def find_code_numbers
+    return (1..4).inject([]) { |acc| acc << PEGS[turn] } if turn.zero? || hit_count.zero?
+
+    correct = guess.take(hit_count)
+    correct << PEGS[turn] until correct.length == 4
     correct
   end
 
   def find_code_order(correct_nums)
     @possible_guesses = correct_nums.permutation.to_a.uniq
-    possible_guesses.reject! { |perm| valid_guess?(perm, previous_guesses) }
+    possible_guesses.reject! { |perm| reject_guess?(perm) }
     possible_guesses.sample
   end
 
-  def valid_guess?(perm_guess, previous_guesses)
-    previous_guesses.any? do |prev_guess|
-      guess = prev_guess.first
-      guess_hits = prev_guess.last
+  def reject_guess?(perm_guess)
+    board.previous_guesses.any? do |prev_guess|
+      guess = prev_guess[:guess]
+      guess_counts = find_hit_counts(prev_guess[:hits])
       perm_hits = compare(perm_guess, guess)
-      guess_hits.first != perm_hits.first && guess_hits.last != perm_hits.last
+      perm_counts = find_hit_counts(perm_hits)
+      guess_counts.first != perm_counts.first && guess_counts.last != perm_counts.last
+    end
+  end
+
+  def find_hit_counts(hits)
+    hits.each_with_object([0, 0]) do |type, acc|
+      acc[0] += 1 if type == 'E'
+      acc[1] += 1 if type == 'P'
     end
   end
 end
-
-# rubocop: enable Metrics/AbcSize
