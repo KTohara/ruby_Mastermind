@@ -7,23 +7,16 @@ class Human < Player
   include Display
 
   def play_game
-    until turn == 11
-      puts board
+    until turn == 12
+      render
       @guess = player_input
+      @guess_hits = compare(guess, code)
       update_board
       break if win?
 
-      turn += 1
+      @turn += 1
     end
     game_over
-  end
-
-  def play_turn
-    puts "CODE: #{code.join(' ')}"
-    puts "TURN: #{turn}"
-    player_input
-    # previous_guesses[guess] = compare(guess, code)
-    # show_guess(guess, previous_guesses[guess])
   end
 
   protected

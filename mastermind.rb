@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
 require_relative 'human'
 require_relative 'computer'
 require_relative 'display'
@@ -11,6 +10,7 @@ class Mastermind
   include Display
 
   def run
+    system('clear')
     puts game_message(:greetings)
     input = gets.chomp
     until %w[1 2].include?(input)
@@ -48,10 +48,10 @@ class Mastermind
 
   def repeat_game?
     input = nil
-    until %w[y n].include?(input)
+    until %w[1 2].include?(input)
       puts prompt(:replay)
       input = gets.chomp.downcase
-      Mastermind.new.run if input == 'y'
+      Mastermind.new.run if input == '1'
     end
     puts game_message(:thanks)
     exit 0

@@ -6,7 +6,7 @@ require_relative 'player'
 class Computer < Player
   include Display
 
-  attr_reader :correct_nums, :possible_guesses, :guess_hits, :hit_count
+  attr_reader :correct_nums, :previous_guesses, :possible_guesses, :hit_count
 
   PEGS = %w[1 2 3 4 5 6].shuffle.freeze
 
@@ -16,7 +16,7 @@ class Computer < Player
   end
 
   def play_game
-    until turn == 11
+    until turn == 12
       play_turn
       sleep(1)
       break if win?
@@ -27,7 +27,6 @@ class Computer < Player
   end
 
   def play_turn
-    render
     @guess = find_guess
     @guess_hits = compare(guess, code)
     @hit_count = find_hit_counts(guess_hits).sum

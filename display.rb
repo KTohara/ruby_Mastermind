@@ -15,7 +15,7 @@ module Display
   JOIN_R = "\u251C".purple # ┤
   JOIN_L = "\u2524".purple # ├
   JOIN_A = "\u253C".purple # ┼
-  SPACE  = " " * 27
+  SPACE  = ' ' * 27
 
   def top_row
     SPACE + TOP_L + HORI * 15 + JOIN_D + HORI * 9 + TOP_R
@@ -46,14 +46,14 @@ module Display
   end
 
   def banner
-    %q{
-    ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ 
+    '
+    ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗
     ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗
     ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║
     ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║
     ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝
-    ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ 
-    }.purple
+    ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝
+    '.purple
   end
 
   def pegs(number)
@@ -80,31 +80,27 @@ module Display
 
   def prompt(message)
     {
-      breaker_code: "Enter a 4 digit 'code' using numbers 1-6 for each digit, to be broken by the computer",
-      guess: "Make a guess - 4 digits between 1-6 IE: '1234'",
-      replay: 'Repeat game? (y)es/(n)o'
+      breaker_code: "\nEnter master code - 4 digit 'code' using numbers 1 to 6 for each digit (Numbers can be repeated)",
+      guess: "Make a guess - 4 digits between 1 to 6 IE: '5133' (Numbers can be repeated)",
+      replay: 'Repeat game? (1) Yes : (2) No'
     }[message]
   end
 
   def error(message)
     {
-      game_mode: 'Enter (1) to be a code BREAKER, (2) to be a code MAKER'.red,
-      code_error: "Your 'code' must be 4 digits, between 1-6".red
+      game_mode: "\nEnter (1) to be a CODE-BREAKER, (2) to be a CODE-MAKER".red,
+      code_error: "\nYour 'code' must be 4 digits, between 1 to 6".red
     }[message]
   end
 
   def game_message(message)
     {
-      greetings: "Let's play Mastermind!\n" \
-        "Press (1) to be a code BREAKER\n" \
-        "Press (2) to be a code MAKER\n",
-      win: "The code was guessed!\n\n".red,
-      lose: "The code was not found!\n\n".red,
-      thanks: 'Thanks for playing!'
+      greetings: "#{"Let's play...".rjust(40).bold}\n\n#{banner}\n" \
+                 "Press (1) to be a CODE-BREAKER\n" \
+                 'Press (2) to be a CODE-MAKER',
+      win: "The code was guessed!\n".red.bold,
+      lose: "The code was not found!\n".red.bold,
+      thanks: "\nThanks for playing!".bold
     }[message]
-  end
-
-  def show_code(code)
-    puts code.join(' ')
   end
 end

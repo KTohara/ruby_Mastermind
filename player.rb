@@ -12,13 +12,14 @@ class Player
 
   private
 
-  attr_reader :code, :guess, :previous_guesses, :board, :turn
+  attr_reader :code, :guess, :guess_hits, :board, :turn
 
   def compare(guess, code)
     guess_dup = guess.dup
     code_dup = code.dup
     exact_match(guess_dup, code_dup)
     partial_match(guess_dup, code_dup)
+    sort_hits(guess_dup)
   end
 
   def exact_match(guess, code)
@@ -44,14 +45,20 @@ class Player
     end
   end
 
+  def sort_hits(hits)
+    sorted = 'E' * hits.count('E') + 'P' * hits.count('P') + 'M' * hits.count('M')
+    sorted.split('')
+  end
+
   def update_board
     board.update_guess(turn, guess)
     render_turn
     board.update_hits(turn, guess_hits)
+    render
   end
 
   def stats
-    top_row + "\n" + stats_row(turn, code) + "\n" + bottom_row + "\n"
+    "#{top_row}\n#{stats_row(turn + 1, code)}\n#{bottom_row}\n"
   end
 
   def render

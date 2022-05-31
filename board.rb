@@ -40,6 +40,6 @@ class Board
                .map { |row| game_row(row[:guess], row[:hits]) }
                .join("\n#{divider_row}\n")
 
-    "#{top_row}\n#{peg_rows}\n#{bottom_row}\n"
+    "#{top_row}\n#{peg_rows}\n#{bottom_row}\n\n"
   end
 end
