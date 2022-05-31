@@ -46,8 +46,8 @@ class Player
   end
 
   def sort_hits(hits)
-    sorted = 'E' * hits.count('E') + 'P' * hits.count('P') + 'M' * hits.count('M')
-    sorted.split('')
+    order = %w[E P M]
+    hits.sort { |e1, e2| order.index(e1) <=> order.index(e2) }
   end
 
   def update_board

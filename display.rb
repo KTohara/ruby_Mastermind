@@ -80,8 +80,8 @@ module Display
 
   def prompt(message)
     {
-      breaker_code: "\nEnter master code - 4 digit 'code' using numbers 1 to 6 for each digit (Numbers can be repeated)",
-      guess: "Make a guess - 4 digits between 1 to 6 IE: '5133' (Numbers can be repeated)",
+      breaker_code: "\nEnter master code - 4 digit 'code' between 1 to 6. IE: '5133' (Numbers can be repeated)",
+      guess: "Make a guess - 4 digits between 1 to 6. IE: '5133' (Numbers can be repeated)",
       replay: 'Repeat game? (1) Yes : (2) No'
     }[message]
   end
@@ -89,7 +89,7 @@ module Display
   def error(message)
     {
       game_mode: "\nEnter (1) to be a CODE-BREAKER, (2) to be a CODE-MAKER".red,
-      code_error: "\nYour 'code' must be 4 digits, between 1 to 6".red
+      code_error: "\nYour 'code' must be 4 digits, between 1 to 6. IE: '5133'".red
     }[message]
   end
 

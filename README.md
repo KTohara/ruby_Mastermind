@@ -6,7 +6,7 @@ Mastermind is a code breaking game. Guess the order of the numbers to win!
 
 A code is entered into the board for a player to guess. 
 
-In this version, you can play as the CODE-BREAKER, or CODE-MAKER.
+In this version you can play as the CODE-BREAKER, or CODE-MAKER.
 
 ### Code-Breaker: ###
   - You have 12 turns to figure out the combination of a randomly generated 4 digit 'code' between 1 - 6.
@@ -19,12 +19,12 @@ In this version, you can play as the CODE-BREAKER, or CODE-MAKER.
   - The algorithm in this game is not as optimized, but the AI will generally solve a code within 5 to 7 turns.
 
 ### Clues / Symbols ###
-- **:green_circle:**: Represents number of digits that are the **correct** number and **correct** position.
+- **:green_circle:**: Represents number of digits that are the **correct** number, and **correct** position.
 - **:red_circle:**: Represents number of digits that are the **correct** number, but **wrong** position.
 - **:o:**: Represents number of digits that are **misses**.
 
 ### Play ###
-Head to [repl.it](https://replit.com/@KenTohara/rubyMastermind)
+Head to [repl.it](https://replit.com/@KenTohara/rubyMastermind)!
 
 Press the green run button at the top of the page.
 
