@@ -23,8 +23,9 @@ In this version, you can play as the CODE-BREAKER, or CODE-MAKER.
 - **:red_circle:**: Represents number of digits that are the **correct** number, but **wrong** position.
 - **:o:**: Represents number of digits that are **misses**.
 
-#### Play ####
+### Play ###
 Head to [repl.it](https://replit.com/@KenTohara/rubyMastermind)
+
 Press the green run button at the top of the page.
 
 [![Run on Repl.it](https://repl.it/badge/github/KTohara/ruby_Mastermind)](https://replit.com/@KenTohara/rubyMastermind)
