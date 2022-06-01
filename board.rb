@@ -42,4 +42,29 @@ class Board
 
     "#{top_row}\n#{peg_rows}\n#{bottom_row}\n\n"
   end
+
+  def update_board(row, guess, hits, stats)
+    update_guess(row, guess)
+    render_row(row, stats)
+    update_hits(row, hits)
+    render(stats)
+  end
+
+  def render_row(row, stats)
+    current_guess = guess_at(row)
+    empty_row = Array.new(4, '_')
+    empty_row.each_index do |i|
+      empty_row[i] = current_guess[i]
+      update_guess(row, empty_row)
+      render(stats)
+      sleep(0.5)
+    end
+  end
+
+  def render(stats)
+    system('clear')
+    puts banner
+    puts stats
+    puts self
+  end
 end

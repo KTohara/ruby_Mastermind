@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'player'
-
-# Human player class
+# Human player class - holds most current stats to be placed into ::Board
 class Human < Player
-  include Display
 
   def play_game
     until turn == 12
-      render
+      board.render(stats)
       @guess = player_input
       @guess_hits = compare(guess, code)
-      update_board
+      board.update_board(turn, guess, guess_hits, stats)
       break if win?
 
       @turn += 1

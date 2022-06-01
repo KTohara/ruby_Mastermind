@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'player'
-
-# Computer player class
+# Computer player class - holds most current stats to be placed into ::Board
 class Computer < Player
-  include Display
 
-  attr_reader :correct_nums, :previous_guesses, :possible_guesses, :hit_count
+  attr_reader :correct_nums, :possible_guesses, :hit_count
 
   PEGS = %w[1 2 3 4 5 6].shuffle.freeze
 
@@ -31,7 +28,7 @@ class Computer < Player
     @guess_hits = compare(guess, code)
     @hit_count = find_hit_counts(guess_hits).sum
     @correct_nums = guess if hit_count == 4
-    update_board
+    board.update_board(turn, guess, guess_hits, stats)
   end
 
   def find_guess
