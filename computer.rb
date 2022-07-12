@@ -36,7 +36,7 @@ class Computer < Player
   end
 
   def find_code_numbers
-    return (1..4).inject([]) { |acc| acc << PEGS[turn] } if turn.zero? || hit_count.zero?
+    return (1..4).map { |turn| PEGS[turn] } if turn.zero? || hit_count.zero?
 
     correct = guess.take(hit_count)
     correct << PEGS[turn] until correct.length == 4
